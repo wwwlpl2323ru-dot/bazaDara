@@ -1,15 +1,31 @@
-﻿"use client";
+"use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { GlowingBorderButton } from "@/components/ui/glowing-border-button";
-import { Phone, Mail, MessageCircle, AtSign, MapPin, Send, CheckCircle } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MessageCircle,
+  AtSign,
+  MapPin,
+  Send,
+  CheckCircle,
+  Car,
+  ChevronRight,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const contacts = [
-  { icon: Phone, label: "РўРµР»РµС„РѕРЅ", value: "+7 705 599-73-36", href: "tel:+77055997336" },
+  { icon: Phone, label: "Телефон", value: "+7 705 599-73-36", href: "tel:+77055997336" },
   { icon: Mail, label: "Email", value: "bryanceva.elvira@mail.ru", href: "mailto:bryanceva.elvira@mail.ru" },
-  { icon: MessageCircle, label: "WhatsApp", value: "РќР°РїРёСЃР°С‚СЊ РІ WhatsApp", href: "https://wa.me/77055997336" },
-  { icon: AtSign, label: "AtSign", value: "@baza.dara", href: "https://www.instagram.com/baza_otdyxa_dara" },
+  { icon: MessageCircle, label: "WhatsApp", value: "Написать в WhatsApp", href: "https://wa.me/77055997336" },
+  { icon: AtSign, label: "Instagram", value: "@baza_otdyxa_dara", href: "https://www.instagram.com/baza_otdyxa_dara" },
+];
+
+const routeSteps = [
+  { label: "Кокшетау", sub: "ближайший город", color: "text-emerald-400", bg: "bg-emerald-500/10", ring: "ring-emerald-500/20" },
+  { label: "15-20 мин", sub: "на машине", color: "text-white/60", bg: "bg-white/5", ring: "ring-white/10", isArrow: true },
+  { label: "Озеро Шалкар", sub: "база отдыха Дара", color: "text-cyan-400", bg: "bg-cyan-500/10", ring: "ring-cyan-500/20" },
 ];
 
 export function Booking() {
@@ -44,18 +60,18 @@ export function Booking() {
           className="mb-16 text-center"
         >
           <p className="mb-3 text-sm font-medium uppercase tracking-widest text-emerald-400">
-            Р‘СЂРѕРЅРёСЂРѕРІР°РЅРёРµ
+            Бронирование
           </p>
           <h2 className="text-3xl font-bold text-white md:text-5xl">
-            Р—Р°Р±СЂРѕРЅРёСЂСѓР№С‚Рµ РѕС‚РґС‹С…
+            Забронируйте отдых
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-white/50">
-            Р—Р°РїРѕР»РЅРёС‚Рµ С„РѕСЂРјСѓ РёР»Рё СЃРІСЏР¶РёС‚РµСЃСЊ СЃ РЅР°РјРё РЅР°РїСЂСЏРјСѓСЋ. РћС‚РІРµС‚РёРј РІ С‚РµС‡РµРЅРёРµ 30 РјРёРЅСѓС‚.
+            Заполните форму или свяжитесь с нами напрямую. Ответим в течение 30 минут.
           </p>
         </motion.div>
 
         <div className="grid gap-12 lg:grid-cols-2">
-          {/* Р¤РѕСЂРјР° */}
+          {/* Форма */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -69,24 +85,26 @@ export function Booking() {
                 className="flex h-full flex-col items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-12 text-center"
               >
                 <CheckCircle className="mb-4 h-16 w-16 text-emerald-400" />
-                <h3 className="mb-2 text-xl font-bold text-white">Р—Р°СЏРІРєР° РѕС‚РїСЂР°РІР»РµРЅР°!</h3>
-                <p className="text-white/50">Р­Р»СЊРІРёСЂР° СЃРІСЏР¶РµС‚СЃСЏ СЃ РІР°РјРё РІ С‚РµС‡РµРЅРёРµ 30 РјРёРЅСѓС‚ РґР»СЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ Р±СЂРѕРЅРёСЂРѕРІР°РЅРёСЏ.</p>
+                <h3 className="mb-2 text-xl font-bold text-white">Заявка отправлена!</h3>
+                <p className="text-white/50">
+                  Эльвира свяжется с вами в течение 30 минут для подтверждения бронирования.
+                </p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1.5 block text-xs text-white/40">Р’Р°С€Рµ РёРјСЏ</label>
+                    <label className="mb-1.5 block text-xs text-white/40">Ваше имя</label>
                     <input
                       className={inputCls}
-                      placeholder="РђР№РЅСѓСЂ"
+                      placeholder="Айнур"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       required
                     />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-xs text-white/40">РўРµР»РµС„РѕРЅ</label>
+                    <label className="mb-1.5 block text-xs text-white/40">Телефон</label>
                     <input
                       className={inputCls}
                       placeholder="+7 700 000 00 00"
@@ -98,29 +116,29 @@ export function Booking() {
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="mb-1.5 block text-xs text-white/40">Р”Р°С‚С‹ Р·Р°РµР·РґР°</label>
+                    <label className="mb-1.5 block text-xs text-white/40">Даты заезда</label>
                     <input
                       className={inputCls}
-                      placeholder="15-17 РёСЋР»СЏ"
+                      placeholder="15-17 июля"
                       value={form.dates}
                       onChange={(e) => setForm({ ...form, dates: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="mb-1.5 block text-xs text-white/40">РљРѕР»РёС‡РµСЃС‚РІРѕ РіРѕСЃС‚РµР№</label>
+                    <label className="mb-1.5 block text-xs text-white/40">Количество гостей</label>
                     <input
                       className={inputCls}
-                      placeholder="4 С‡РµР»РѕРІРµРєР°"
+                      placeholder="4 человека"
                       value={form.guests}
                       onChange={(e) => setForm({ ...form, guests: e.target.value })}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="mb-1.5 block text-xs text-white/40">РџРѕР¶РµР»Р°РЅРёСЏ</label>
+                  <label className="mb-1.5 block text-xs text-white/40">Пожелания</label>
                   <textarea
                     className={cn(inputCls, "min-h-[100px] resize-none")}
-                    placeholder="РўРёРї РґРѕРјРёРєР°, РѕСЃРѕР±С‹Рµ РїРѕР¶РµР»Р°РЅРёСЏ..."
+                    placeholder="Тип домика, особые пожелания..."
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                   />
@@ -133,12 +151,12 @@ export function Booking() {
                   {loading ? (
                     <span className="flex items-center gap-2">
                       <span className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-950/20 border-t-zinc-950" />
-                      РћС‚РїСЂР°РІР»СЏРµРј...
+                      Отправляем...
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
                       <Send className="h-4 w-4" />
-                      РћС‚РїСЂР°РІРёС‚СЊ Р·Р°СЏРІРєСѓ
+                      Отправить заявку
                     </span>
                   )}
                 </GlowingBorderButton>
@@ -146,7 +164,7 @@ export function Booking() {
             )}
           </motion.div>
 
-          {/* РљРѕРЅС‚Р°РєС‚С‹ */}
+          {/* Контакты + маршрут + условия */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -154,8 +172,9 @@ export function Booking() {
             transition={{ duration: 0.7 }}
             className="space-y-4"
           >
+            {/* Контакты */}
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
-              <h3 className="mb-4 font-semibold text-white">РЎРІСЏР¶РёС‚РµСЃСЊ РЅР°РїСЂСЏРјСѓСЋ</h3>
+              <h3 className="mb-4 font-semibold text-white">Свяжитесь напрямую</h3>
               <div className="space-y-3">
                 {contacts.map((c) => (
                   <a
@@ -177,29 +196,55 @@ export function Booking() {
               </div>
             </div>
 
-            {/* Р›РѕРєР°С†РёСЏ */}
+            {/* Как добраться */}
             <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 ring-1 ring-emerald-500/20">
-                  <MapPin className="h-4 w-4 text-emerald-400" />
+              <div className="mb-4 flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10">
+                  <Car className="h-4 w-4 text-emerald-400" />
                 </div>
-                <div>
-                  <div className="text-sm font-medium text-white">РљР°Рє РґРѕР±СЂР°С‚СЊСЃСЏ</div>
-                  <p className="mt-1 text-sm leading-relaxed text-white/50">
-                    РЎРµРІРµСЂРѕ-РљР°Р·Р°С…СЃС‚Р°РЅСЃРєР°СЏ РѕР±Р»Р°СЃС‚СЊ, РѕР·РµСЂРѕ РЁР°Р»РєР°СЂ. РўРѕС‡РЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РїСЂРёС€Р»С‘Рј РїСЂРё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРё Р±СЂРѕРЅРёСЂРѕРІР°РЅРёСЏ.
-                  </p>
-                </div>
+                <span className="text-sm font-semibold text-white">Как добраться</span>
+              </div>
+
+              {/* Маршрут */}
+              <div className="flex items-center gap-2">
+                {routeSteps.map((step, i) =>
+                  step.isArrow ? (
+                    <div key={i} className="flex flex-col items-center gap-1">
+                      <ChevronRight className="h-4 w-4 text-white/20" />
+                      <span className="text-center text-[10px] leading-tight text-white/30">
+                        {step.label}
+                        <br />
+                        {step.sub}
+                      </span>
+                    </div>
+                  ) : (
+                    <div
+                      key={i}
+                      className={`flex-1 rounded-xl border ${step.bg} ${step.ring} ring-1 px-3 py-2.5 text-center`}
+                    >
+                      <div className={`text-xs font-semibold ${step.color}`}>{step.label}</div>
+                      <div className="mt-0.5 text-[10px] text-white/30">{step.sub}</div>
+                    </div>
+                  )
+                )}
+              </div>
+
+              <div className="mt-3 flex items-start gap-2">
+                <MapPin className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-emerald-400/60" />
+                <p className="text-xs leading-relaxed text-white/40">
+                  Точные координаты и маршрут в 2GIS пришлём при подтверждении бронирования.
+                </p>
               </div>
             </div>
 
-            {/* РЈСЃР»РѕРІРёСЏ Р±СЂРѕРЅРёСЂРѕРІР°РЅРёСЏ */}
+            {/* Условия бронирования */}
             <div className="rounded-2xl border border-amber-500/10 bg-amber-500/[0.03] p-6">
-              <h4 className="mb-3 text-sm font-medium text-amber-400">РЈСЃР»РѕРІРёСЏ Р±СЂРѕРЅРёСЂРѕРІР°РЅРёСЏ</h4>
+              <h4 className="mb-3 text-sm font-medium text-amber-400">Условия бронирования</h4>
               <ul className="space-y-2 text-xs text-white/40">
-                <li>- РџСЂРµРґРѕРїР»Р°С‚Р° 50% РїСЂРё Р±СЂРѕРЅРёСЂРѕРІР°РЅРёРё (РЅРµРІРѕР·РІСЂР°С‚РЅР°СЏ)</li>
-                <li>- РћС‚РјРµРЅР° РІРѕР·РјРѕР¶РЅР° Р·Р° 3 РґРЅСЏ РґРѕ Р·Р°РµР·РґР°</li>
-                <li>- Р—Р°РµР·Рґ 14:00 / Р’С‹РµР·Рґ 12:00</li>
-                <li>- РћРћРџРў-РЅР°Р»РѕРі 370 С‚РµРЅРіРµ РѕРїР»Р°С‡РёРІР°РµС‚СЃСЏ РЅР° РјРµСЃС‚Рµ</li>
+                <li>- Предоплата 50% при бронировании (невозвратная)</li>
+                <li>- Отмена возможна за 3 дня до заезда</li>
+                <li>- Заезд 14:00 / Выезд 12:00</li>
+                <li>- ООПТ-налог 370 тенге оплачивается на месте</li>
               </ul>
             </div>
           </motion.div>
@@ -208,5 +253,3 @@ export function Booking() {
     </section>
   );
 }
-
-

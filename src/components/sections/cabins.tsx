@@ -2,7 +2,16 @@
 import { motion } from "framer-motion";
 import { Meteors } from "@/components/ui/meteors";
 import { GlowingBorderButton } from "@/components/ui/glowing-border-button";
-import { Refrigerator, Flame, Wifi, Check } from "lucide-react";
+import {
+  Refrigerator,
+  Flame,
+  Wifi,
+  Check,
+  Users,
+  BedDouble,
+  UtensilsCrossed,
+  Droplets,
+} from "lucide-react";
 
 const cabinTypes = [
   {
@@ -12,8 +21,16 @@ const cabinTypes = [
     period: "за сутки",
     description: "Идеально для пары или небольшой компании. Все условия для спокойного отдыха.",
     amenities: ["Холодильник", "Чайник", "Мангал в зоне отдыха", "Общая кухня"],
+    icons: [
+      { icon: BedDouble, label: "2 кровати" },
+      { icon: Refrigerator, label: "Холодильник" },
+      { icon: Flame, label: "Мангал" },
+      { icon: UtensilsCrossed, label: "Кухня" },
+    ],
     popular: false,
     gradient: "from-emerald-500/10 to-cyan-500/10",
+    accentColor: "text-emerald-400",
+    border: "border-white/5",
   },
   {
     name: "Семейный домик",
@@ -22,8 +39,16 @@ const cabinTypes = [
     period: "за сутки",
     description: "Просторный домик для семьи или большой компании. Комфорт и приватность.",
     amenities: ["Холодильник", "Чайник", "Личный мангал", "Общая кухня", "Парилка рядом"],
+    icons: [
+      { icon: Users, label: "4-6 мест" },
+      { icon: Refrigerator, label: "Холодильник" },
+      { icon: Flame, label: "Личный мангал" },
+      { icon: Droplets, label: "Баня рядом" },
+    ],
     popular: true,
     gradient: "from-amber-500/10 to-orange-500/10",
+    accentColor: "text-amber-400",
+    border: "border-amber-500/30",
   },
 ];
 
@@ -73,13 +98,28 @@ export function Cabins() {
                 </div>
               )}
 
-              <div className={`relative rounded-2xl border bg-gradient-to-br ${cabin.gradient} p-8 ${cabin.popular ? "border-amber-500/30" : "border-white/5"} overflow-hidden`}>
+              <div
+                className={`relative rounded-2xl border bg-gradient-to-br ${cabin.gradient} p-8 ${cabin.border} overflow-hidden`}
+              >
                 <Meteors number={10} />
 
                 <div className="relative z-10">
                   <div className="mb-2 text-sm text-white/40">{cabin.capacity}</div>
                   <h3 className="mb-1 text-2xl font-bold text-white">{cabin.name}</h3>
-                  <p className="mb-6 text-sm text-white/50">{cabin.description}</p>
+                  <p className="mb-5 text-sm text-white/50">{cabin.description}</p>
+
+                  {/* Иконки удобств */}
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    {cabin.icons.map((item) => (
+                      <div
+                        key={item.label}
+                        className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/[0.04] px-3 py-1.5 text-xs text-white/60"
+                      >
+                        <item.icon className={`h-3.5 w-3.5 ${cabin.accentColor}`} />
+                        {item.label}
+                      </div>
+                    ))}
+                  </div>
 
                   <div className="mb-6">
                     <span className="text-4xl font-bold text-white">{cabin.price}</span>
@@ -98,7 +138,9 @@ export function Cabins() {
                   <GlowingBorderButton
                     variant={cabin.popular ? "primary" : "outline"}
                     className="w-full justify-center"
-                    onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })}
+                    onClick={() =>
+                      document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })
+                    }
                   >
                     Забронировать
                   </GlowingBorderButton>
